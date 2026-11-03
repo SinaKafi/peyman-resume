@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Design system — "Control register"
+   A warm paper ramp with ink text and a single ember accent.
+   The dark surface is reserved for the one rendered moment.
+   ------------------------------------------------------------------ */
+
+@theme {
+  --color-paper: #f7f4ee;
+  --color-surface: #fdfbf7;
+  --color-raised: #efe9df;
+  --color-ink: #1f1b16;
+  --color-ink-2: #5e554a;
+  --color-ink-3: #6f6659;
+  --color-ink-soft: #322c24;
+
+  --color-ember: #a8481a;
+  --color-ember-deep: #8c3a12;
+  --color-ember-soft: #c2703a;
+
+  --color-deep: #12110f;
+  --color-deep-2: #1c1a18;
+  --color-deep-3: #262421;
+  --color-deep-text: #efe9de;
+  --color-deep-2-text: #aaa398;
+  --color-deep-3-text: #8a847a;
+
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-newsreader), Georgia, serif;
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-ember) 22%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  a,
+  button {
+    transition-property: color, background-color, border-color, opacity;
+    transition-duration: 160ms;
+    transition-timing-function: var(--ease-out-expo);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 400;
+    letter-spacing: normal;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* Section eyebrow: a register code, not a decorative badge */
+@utility code-label {
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+@utility code-label-deep {
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  color: var(--color-deep-3-text);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

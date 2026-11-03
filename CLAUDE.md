@@ -33,28 +33,87 @@ Strict rules:
 - Do not expose unnecessary personal information such as marital status or date of birth in the public portfolio unless explicitly requested.
 - Keep all portfolio content consistent with the source resume.
 
-## 2. Mandatory Unslop Skill Integration
+## Technology Stack & Architecture
 
-You MUST use the existing Unslop skill available at:
+This is a greenfield project. Build the portfolio using the following technology stack:
+
+### Core Stack
+
+- **Next.js 16+** — App Router
+- **TypeScript** — Strict mode enabled
+- **React** — Latest stable version compatible with the selected Next.js version
+- **Tailwind CSS 4** — Utility-first styling
+
+### UI & Animation
+
+- **Framer Motion** — Purposeful animations and transitions
+- **Lucide React** — Consistent icon system
+- Custom reusable components instead of generic UI templates.
+
+### Development & Quality
+
+- ESLint for code quality.
+- Strict TypeScript configuration.
+- Server Components by default.
+- Client Components only when interactivity requires them.
+- Responsive-first implementation.
+- Semantic HTML and accessibility best practices.
+
+### Architecture Guidelines
+
+- Use Next.js App Router.
+- Keep the project lightweight and maintainable.
+- Separate content, components, utilities, and styling logically.
+- Use `content/resume.md` as the source of truth.
+- Avoid unnecessary abstractions and overengineering.
+- Do not introduce a UI component library unless there is a clear technical reason.
+- Avoid unnecessary dependencies.
+
+### Performance & SEO
+
+- Optimize fonts and images.
+- Use Next.js metadata API.
+- Implement appropriate Open Graph metadata.
+- Optimize rendering and loading performance.
+- Ensure the production build succeeds.
+
+### Important
+
+Use stable, mutually compatible package versions available at implementation time. Do not downgrade or use experimental releases without a clear reason.
+
+## Mandatory Unslop Integration
+
+Use the actual installed Unslop skill:
 
 `.claude/skills/unslop/SKILL.md`
 
-Before making any design or implementation decisions:
+Do not merely use Unslop as a design checklist.
 
-1. Read the complete `.claude/skills/unslop/SKILL.md` file.
-2. Follow its instructions, design principles, workflows, and quality criteria.
-3. Apply its recommendations throughout the entire portfolio implementation.
-4. Do not skip or replace the Unslop workflow with your own interpretation.
+Follow its complete workflow:
 
-After completing the initial implementation:
+1. Audit the existing implementation and identify design issues.
+2. Establish a distinctive visual direction based on the portfolio's content and professional identity.
+3. Apply all relevant design passes in the prescribed order:
+   - Spacing
+   - Color
+   - Icons
+   - Copy
+   - Typography
+   - Layout
+   - Details
+   - Visuals
+   - Motion
+4. Review the implementation visually and refine the actual interface.
+5. Use visual assets only when they contribute meaningful value.
+6. Complete all applicable refinements before considering the design finished.
 
-1. Revisit the Unslop skill instructions.
-2. Perform its recommended design review and refinement process.
-3. Identify and eliminate generic AI-generated design patterns.
-4. Refine typography, spacing, composition, visual hierarchy, interactions, and overall design quality.
-5. Repeat the review until the portfolio meets the skill's quality standards.
+Use `/unslop` after the initial portfolio implementation to perform the dedicated design refinement workflow.
 
-**Important:** The Unslop skill is mandatory for this project, not an optional reference. Do not claim it was applied unless you actually read and followed its instructions.
+Do not replace the actual skill with manually written design rules.
+
+Do not skip applicable passes or claim completion without performing them.
+
+Story video generation is optional and should only be performed if explicitly requested.
 
 ## 3. Creative Direction
 
