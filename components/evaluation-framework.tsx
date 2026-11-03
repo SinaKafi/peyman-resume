@@ -23,7 +23,7 @@ const tiers = [
 export function EvaluationFramework() {
   return (
     <figure className="border-t border-ink/12 pt-6">
-      <figcaption className="code-label">
+      <figcaption className="code-label text-center">
         Evaluation framework · holding to subsidiary
       </figcaption>
 
@@ -33,7 +33,7 @@ export function EvaluationFramework() {
           viewBox="0 0 660 172"
           role="img"
           aria-label="Diagram: a goal spine connects the holding level to business units, subsidiaries and consolidated reporting."
-          className="mt-6 h-auto w-full max-w-[720px]"
+          className="mx-auto mt-6 h-auto w-full max-w-[720px]"
         >
           {/* goal spine */}
           <line x1="90" y1="26" x2="570" y2="26" className="stroke-ink/25" strokeWidth="1" />
@@ -107,9 +107,9 @@ export function EvaluationFramework() {
           </text>
         </svg>
 
-        <ul className="mt-6 grid max-w-[720px] gap-x-10 gap-y-3 border-t border-ink/8 pt-5 sm:grid-cols-3">
+        <ul className="mx-auto mt-6 grid max-w-[720px] gap-x-10 gap-y-3 border-t border-ink/8 pt-5 sm:grid-cols-3">
           {tiers.map((tier) => (
-            <li key={tier.code} className="text-[0.8125rem] leading-[1.6] text-ink-2">
+            <li key={tier.code} className="text-center text-[0.8125rem] leading-[1.6] text-ink-2">
               {tier.line}
             </li>
           ))}
