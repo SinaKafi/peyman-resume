@@ -34,20 +34,25 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Resolve base path
+      - name: Resolve base path and site URL
         id: base
         run: |
           # A `*.github.io` repository is served from the domain root; every
           # other repository is served from /<repository-name>.
           if [ "${{ github.event.repository.name }}" = "${{ github.repository_owner }}.github.io" ]; then
             echo "path=" >> "$GITHUB_OUTPUT"
+            echo "site=https://${{ github.repository_owner }}.github.io" >> "$GITHUB_OUTPUT"
           else
             echo "path=/${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
+            echo "site=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Build static export
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.base.outputs.path }}
+          # Set the repository variable SITE_URL to publish under a custom
+          # domain (it also changes the canonical and Open Graph URLs).
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SITE_URL || steps.base.outputs.site }}
           NEXT_TELEMETRY_DISABLED: "1"
         run: npm run build
 

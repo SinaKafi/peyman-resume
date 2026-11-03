@@ -17,7 +17,18 @@ const newsreader = Newsreader({
   style: ["normal"],
 });
 
-const siteUrl = "https://mohammadmoghaddam.com";
+/**
+ * Canonical origin of the deployed site.
+ *
+ * A GitHub Pages project site is served from a subpath, so the base path is
+ * part of the URL and not merely an asset prefix — a canonical of "/" would
+ * point search engines and social cards at the domain root instead of this
+ * site. Set `NEXT_PUBLIC_SITE_URL` (repo variable `SITE_URL` in CI) when
+ * moving to a custom domain.
+ */
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://sinakafi.github.io/peyman-resume";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -39,11 +50,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: identity.name }],
   creator: identity.name,
-  alternates: { canonical: "/" },
+  alternates: { canonical: `${siteUrl}/` },
   openGraph: {
     type: "profile",
     locale: "en_US",
-    url: siteUrl,
+    url: `${siteUrl}/`,
     siteName: identity.name,
     title: `${identity.name} — ${identity.title}`,
     description:
