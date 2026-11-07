@@ -3,7 +3,7 @@
  *
  * Each spring is a damped oscillator: it starts at rest, moves under a force,
  * and stops when it arrives. Amplitudes stay small (press 0.97, fall 8–14px,
- * magnet 6px, tilt 2.4°) so the interface reads as weighted, not alive.
+ * magnet 6px, tilt 2.2°) so the interface reads as weighted, not alive.
  * Nothing loops.
  *
  * Damping ratios (ζ = damping / 2√(stiffness × mass)):
@@ -36,9 +36,6 @@ export const dropDistance = {
   text: 8,
   panel: 14,
 } as const;
-
-/** Maximum lean toward a fine pointer, in degrees. */
-export const tiltLimit = 2.4;
 
 /** Pointer effects only run where a real cursor exists. */
 export function hasFinePointer() {

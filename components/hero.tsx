@@ -5,6 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { Magnetic } from "@/components/motion/magnetic";
 import { PressLink } from "@/components/motion/press";
 import { TypeLine } from "@/components/motion/type-line";
+import { GravityTilt } from "./motion/gravity-tilt";
 
 export function Hero() {
   return (
@@ -82,10 +83,11 @@ export function Hero() {
               </div>
             </dl>
           </Reveal>
-
-          <Reveal delay={0.08} weight="panel" className="lg:pl-4">
-            <ControlBoard />
-          </Reveal>
+          <GravityTilt>
+            <Reveal delay={0.08} weight="panel" className="lg:pl-4">
+              <ControlBoard />
+            </Reveal>
+          </GravityTilt>
         </div>
       </div>
     </section>
