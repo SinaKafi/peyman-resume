@@ -2,6 +2,8 @@ import { ArrowUpRight, MapPin } from "lucide-react";
 import { identity, languages } from "@/content/portfolio";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
+import { PressLink } from "@/components/motion/press";
+import { pressDepth } from "@/components/motion/springs";
 
 export function Contact() {
   return (
@@ -18,8 +20,9 @@ export function Contact() {
 
         <div className="mt-16 grid gap-x-16 gap-y-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
-            <a
+            <PressLink
               href={`mailto:${identity.email}`}
+              scale={pressDepth.row}
               className="group block border-t border-ink/12 pt-6"
             >
               <span className="code-label">Email</span>
@@ -32,10 +35,11 @@ export function Contact() {
                   className="shrink-0 translate-y-0.5 text-ink-3 transition-[transform,color] group-hover:-translate-y-0.5 group-hover:text-ember"
                 />
               </span>
-            </a>
+            </PressLink>
 
-            <a
+            <PressLink
               href={`tel:${identity.phoneHref}`}
+              scale={pressDepth.row}
               className="group mt-10 block border-t border-ink/12 pt-6"
             >
               <span className="code-label">Phone</span>
@@ -44,7 +48,7 @@ export function Contact() {
                   {identity.phone}
                 </span>
               </span>
-            </a>
+            </PressLink>
           </Reveal>
 
           <Reveal delay={0.06} className="lg:col-span-5">

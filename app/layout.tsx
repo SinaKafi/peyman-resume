@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, Newsreader } from "next/font/google";
 import "./globals.css";
 import { identity } from "@/content/portfolio";
+import { MotionProvider } from "@/components/motion/motion-provider";
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument",
@@ -92,7 +93,13 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {children}
+        {/* No-JS release for the entrance primitives and the typed lines: the
+            static export bakes `opacity: 0` into every block until its in-view
+            animation runs, and the live typing layer starts empty. */}
+        <noscript>
+          <style>{`[data-enter]{opacity:1!important;transform:none!important}[data-type-live]{display:none!important}[data-type-fallback]{visibility:visible!important}`}</style>
+        </noscript>
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

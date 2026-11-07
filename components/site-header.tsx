@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { identity, sections } from "@/content/portfolio";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
+import { PressButton, PressLink } from "@/components/motion/press";
+import { dropDistance, EASE, springs } from "@/components/motion/springs";
+import { Magnetic } from "./motion/magnetic";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -42,7 +43,10 @@ export function SiteHeader() {
           {identity.name}
         </a>
 
-        <nav aria-label="Sections" className="hidden items-center gap-7 md:flex">
+        <nav
+          aria-label="Sections"
+          className="hidden items-center gap-7 md:flex"
+        >
           {sections.map((section) => {
             const isActive = active === section.id;
             return (
@@ -67,14 +71,16 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a
-            href={`mailto:${identity.email}`}
-            className="hidden h-9 items-center rounded-lg border border-ink/15 bg-surface px-4 text-[0.8125rem] font-medium text-ink hover:border-ink/25 hover:bg-raised sm:inline-flex"
-          >
-            Email
-          </a>
+          <Magnetic>
+            <PressLink
+              href={`mailto:${identity.email}`}
+              className="hidden h-9 items-center rounded-lg border border-ink/15 bg-surface px-4 text-[0.8125rem] font-medium text-ink hover:border-ink/25 hover:bg-raised sm:inline-flex"
+            >
+              Email
+            </PressLink>
+          </Magnetic>
 
-          <button
+          <PressButton
             type="button"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
@@ -82,25 +88,37 @@ export function SiteHeader() {
             aria-label={open ? "Close menu" : "Open menu"}
             className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-ink/15 text-ink-2 hover:text-ink md:hidden"
           >
-            {open ? <X size={18} strokeWidth={1.5} /> : <Menu size={18} strokeWidth={1.5} />}
-          </button>
+            {open ? (
+              <X size={18} strokeWidth={1.5} />
+            ) : (
+              <Menu size={18} strokeWidth={1.5} />
+            )}
+          </PressButton>
         </div>
       </div>
 
       <AnimatePresence initial={false}>
         {open ? (
-          <motion.nav
+          <m.nav
             id="mobile-menu"
             aria-label="Sections"
-            initial={reduce ? false : { opacity: 0, y: -6 }}
+            initial={reduce ? false : { opacity: 0, y: -dropDistance.text }}
             animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
-            transition={{ duration: 0.2, ease: EASE }}
+            exit={
+              reduce ? { opacity: 0 } : { opacity: 0, y: -dropDistance.text }
+            }
+            transition={{
+              y: { ...springs.fall },
+              opacity: { duration: 0.24, ease: EASE },
+            }}
             className="border-t border-ink/12 bg-paper md:hidden"
           >
             <ul className="mx-auto w-full max-w-[1240px] px-5 py-2 sm:px-8">
               {sections.map((section) => (
-                <li key={section.id} className="border-b border-ink/8 last:border-b-0">
+                <li
+                  key={section.id}
+                  className="border-b border-ink/8 last:border-b-0"
+                >
                   <a
                     href={`#${section.id}`}
                     onClick={() => setOpen(false)}
@@ -112,7 +130,7 @@ export function SiteHeader() {
                 </li>
               ))}
             </ul>
-          </motion.nav>
+          </m.nav>
         ) : null}
       </AnimatePresence>
     </header>
