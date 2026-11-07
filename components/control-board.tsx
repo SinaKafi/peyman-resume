@@ -1,9 +1,16 @@
+"use client";
+
+import { m } from "framer-motion";
 import { identity } from "@/content/portfolio";
+import { dropDistance, EASE, springs } from "@/components/motion/springs";
 
 /**
  * The one rendered moment on the page: a control register of the actual
  * operational surfaces Mohammad works on — planning, procurement,
  * workflow and document control. Drawn in code, no invented figures.
+ *
+ * The plate leans under a fine pointer, and its cycle segments drop into
+ * their slots on the same gravity spring as the page's entrances.
  */
 
 const plan = [
@@ -39,14 +46,14 @@ function StateDot({ state }: { state: "done" | "current" | "next" }) {
     return (
       <span
         aria-hidden
-        className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-ember-soft"
+        className="mt-1.75 h-1.5 w-1.5 shrink-0 rounded-full bg-ember-soft"
       />
     );
   }
   return (
     <span
       aria-hidden
-      className={`mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full ${
+      className={`mt-1.75 h-1.5 w-1.5 shrink-0 rounded-full ${
         state === "done" ? "bg-deep-3-text/70" : "border border-deep-3-text/50"
       }`}
     />
@@ -75,20 +82,39 @@ export function ControlBoard() {
         </div>
 
         <div className="mt-4 flex h-9 overflow-hidden rounded-md border border-deep-3">
-          {plan.map((phase) => (
-            <div
+          {plan.map((phase, index) => (
+            <m.div
               key={phase.label}
+              data-enter
               style={{ width: `${phase.span}%` }}
-              className={`flex items-center border-r border-deep-3 px-2.5 last:border-r-0 ${
-                phase.state === "current"
-                  ? "bg-ember/85"
-                  : phase.state === "done"
-                    ? "bg-deep-3"
-                    : "bg-deep-2"
+              initial={{ opacity: 0, y: -dropDistance.text }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{
+                y: { ...springs.fall, delay: 0.08 + index * 0.07 },
+                opacity: {
+                  duration: 0.28,
+                  ease: EASE,
+                  delay: 0.08 + index * 0.07,
+                },
+              }}
+              className={`relative flex items-center border-r border-deep-3 px-2.5 last:border-r-0 ${
+                phase.state === "next" ? "bg-deep-2" : "bg-deep-3"
               }`}
             >
+              {phase.state === "current" ? (
+                <m.span
+                  aria-hidden
+                  data-enter
+                  className="absolute inset-0 origin-left bg-ember/85"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ ...springs.settle, delay: 0.22 }}
+                />
+              ) : null}
               <span
-                className={`truncate text-[0.6875rem] tracking-[0.02em] ${
+                className={`relative truncate text-[0.6875rem] tracking-[0.02em] ${
                   phase.state === "current"
                     ? "text-[#fdf3ec]"
                     : phase.state === "done"
@@ -98,7 +124,7 @@ export function ControlBoard() {
               >
                 {phase.label}
               </span>
-            </div>
+            </m.div>
           ))}
         </div>
 

@@ -104,6 +104,15 @@
     scroll-behavior: auto;
   }
 
+  /* Release the opacity and offset every entrance bakes into the static
+     export. Without this, script-driven reveals leave the page below the
+     header invisible for reduced-motion visitors. `!important` beats the
+     inline style Framer writes. */
+  [data-enter] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   *,
   *::before,
   *::after {
